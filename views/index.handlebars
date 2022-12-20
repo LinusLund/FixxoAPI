@@ -1,0 +1,35 @@
+<h1 class="text-center mb-3">{{title}}</h1>
+<form action="/api/products" method="POST" class="mb-4">
+  <div class="form-group">
+    <label for="name">NAME</label>
+    <input type="text" name="name" class="form-control">
+  </div>
+  <div class="form-group">
+    <label for="text">PRICE</label>
+    <input type="text" name="price" class="form-control">
+  </div>
+    <div class="form-group">
+    <label for="text">CATEGORY</label>
+    <input type="text" name="category" class="form-control">
+  </div>
+    <div class="form-group">
+    <label for="text">ImageName</label>
+    <input type="text" name="imageName" class="form-control">
+  </div>
+  <div class = "buttonArea">
+    <input type="submit" value="Add Product" class="btn btn-primary btn-block mt-4">
+    <input type="delete" value="Delete Product" class="btn btn-primary btn-block mt-4">
+    <input type="update" value="Update Product" class="btn btn-primary btn-block mt-4">
+  </div>
+</form>
+
+<h4>Products</h4>
+<section class = "savedProducts">
+<ul class="list-group">
+  {{#each product}}
+  <li class="list-group-item">{{this.name}}: {{this.price}}: {{this.category}}: {{this.imageName}}</li>
+  {{/each}}
+</ul>
+
+<a href="/api/Products" class="btn btn-light">Visit API</a>
+</section>
