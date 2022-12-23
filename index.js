@@ -45,9 +45,9 @@ app.get('/', (req, res) =>
 
 
 // products API Routes
-app.use('/api/products/details', require('./controllers/API/productController'));
-app.use('/api/products', require('./controllers/API/productController'));
-app.use('/', require('./controllers/API/productController'));
+const productController = require('./controllers/API/productController')
+app.use('/api/products', productController);
+
 
 //initialize
 mongodb()

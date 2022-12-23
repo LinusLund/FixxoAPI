@@ -5,6 +5,7 @@ const products = require('../../schemas/productSchema')
 
 
 //Hämta alla produkter
+
 controller.route('/').get(async (req, res) => {
     const products = []
     const list = await productSchema.find()
@@ -29,6 +30,7 @@ controller.route('/').get(async (req, res) => {
  })
 
  //Hämta alla produkter med angiven tag 
+
 controller.route('/:tag').get(async (req, res) => {
     const products = await productSchema.find({tag: req.params.tag})
 
@@ -39,6 +41,7 @@ controller.route('/:tag').get(async (req, res) => {
  })
 
 //hämtar X-antal av den angivna taggen
+
  controller.route('/:tag/:take').get(async (req,res) => {
     const products = []
     const list = await productSchema.find({tag: req.params.tag}).limit(req.params.take)
@@ -62,6 +65,7 @@ controller.route('/:tag').get(async (req, res) => {
  })
 
  //Hämta en specifik produkt
+
  controller.route('/product/details/:articleNumber').get(async (req, res) => {
     const product = await productSchema.findById(req.params.articleNumber)
     if(product) {
@@ -80,6 +84,7 @@ controller.route('/:tag').get(async (req, res) => {
  })
 
 //Lägga till en Produkt
+
  controller.route('/api/products').post(async(req, res) => {
     const { name, description, price, category, tag, imageName, rating } = req.body
 
@@ -108,6 +113,7 @@ controller.route('/:tag').get(async (req, res) => {
 
 
 //Ta bort en Produkt
+
  controller.route('/api/products').delete(async(req, res) => {
     const { name } = req.body
 
@@ -115,11 +121,11 @@ controller.route('/:tag').get(async (req, res) => {
         res.status(400).json({text:'name is required'})
 
     const itemExists = await productSchema.findOne({name})
-    if(!itemExists)
-        res.status(409).json({text:'a product with the that name doesnt exist'})
-    else {
-        const product = await productSchema.deleteOne({
-            name
+        if(!itemExists)
+            res.status(409).json({text:'a product with the that name doesnt exist'})
+        else {
+            const product = await productSchema.deleteOne({
+                name
         })
         if(product)
            res.status(202).json(product)
@@ -127,7 +133,9 @@ controller.route('/:tag').get(async (req, res) => {
             res.status(400).json({text:'Something went wrong'})
     }
  })
+
 //Uppdatera en Produkt
+
 controller.route('/product/details/:articleNumber').put(async (req, res) => {    
     
         const { name, description,price,category,tag,imageName,rating } = req.body
@@ -146,6 +154,12 @@ controller.route('/product/details/:articleNumber').put(async (req, res) => {
         res.status(201).json({msg: `Product with articlenumber ${req.params.articleNumber} has been updated`})
         }
 })
+module.exports = controller;
+
+                                                            // Gammal inaktuell kod ///
+
+
+
 
 // controller.route('/:tag/:take').get((req, res) => {
 // 	let list = []
@@ -228,4 +242,3 @@ controller.route('/product/details/:articleNumber').put(async (req, res) => {
 
 
 
-module.exports = controller;
